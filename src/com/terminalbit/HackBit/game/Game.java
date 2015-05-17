@@ -13,6 +13,8 @@ public class Game implements Runnable {
 	public Game() {
 		renderer = new StateRenderer();
 		serverConnection = new Connection(connectionIP);
+		System.out.println("Constructed");
+		start();
 	}
 	public synchronized void start() {
 		if(alive)
@@ -35,7 +37,7 @@ public class Game implements Runnable {
 		}
 	}
 	public void update() {
-		
+		System.out.println(getIP(0));
 	}
 	public void render() {
 		//rendering = later
@@ -51,7 +53,6 @@ public class Game implements Runnable {
 		stop();
 	}
 	private void loop() {
-
 		this.render();
 		this.update();
 	}
