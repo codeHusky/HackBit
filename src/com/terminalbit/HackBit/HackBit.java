@@ -8,6 +8,7 @@ public class HackBit {
 	public static HBRender HBRenderer = new HBRender();
     public static void main(String[] args) {
         HBRenderer.run();
+        System.out.println("Hello World!");
     }
  
 }
