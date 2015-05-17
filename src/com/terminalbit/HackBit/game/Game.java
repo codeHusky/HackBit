@@ -1,5 +1,8 @@
 package com.terminalbit.HackBit.game;
 
+import java.util.Optional;
+
+import com.terminalbit.HackBit.game.components.Network;
 import com.terminalbit.HackBit.game.connection.Connection;
 import com.terminalbit.HackBit.game.render.StateRenderer;
 
@@ -39,7 +42,7 @@ public class Game implements Runnable {
 	}
 	public void init() {
 		hasInit = true;
-		System.out.println(getServerDetails());
+		System.out.println(getConnectionData("ServerIP").get());
 	}
 	public void update() {
 		if(!hasInit)
@@ -49,11 +52,8 @@ public class Game implements Runnable {
 	public void render() {
 		//rendering = later
 	}
-	public String getIP(int ipID) {
-		return serverConnection.getIP(ipID).get();
-	}
-	public String getServerDetails() {
-		return serverConnection.getServerIP();
+	public Optional<Object> getConnectionData(String data){
+		return serverConnection.getData(data);
 	}
 	@Override
 	public void run() {

@@ -7,7 +7,7 @@ public class ConnectionHandler {
 	public ConnectionHandler(String ip){
 		connection = new ServerConnection(ip);
 	}
-	public Optional<String> getIP(int ipID){
-		return connection.getIP(ipID);
+	public Optional<Object> requestData(String string) {
+		return connection.rD(string);
 	}
 }

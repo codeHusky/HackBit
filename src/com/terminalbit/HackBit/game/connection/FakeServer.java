@@ -10,17 +10,25 @@ import com.terminalbit.HackBit.game.components.Network;
 public class FakeServer {
 	private String serverIP;
 	private List<Network> networks;
-	private int deviceCounter = 0;
+ 	private int networkCount = 0;
 	public FakeServer(String ip){
 		serverIP = ip;
 	}
 	public void setupNetwork(String name){
-		Network newNetwork = new Network(name,deviceCounter,new ArrayList<Device>());
+		Network newNetwork = new Network(name,networkCount,new ArrayList<Device>());
+		networks.add(newNetwork);
+		networkCount++;
 	}
-	public Optional<String> getIP(int ipID){
-		return Optional.of("FakeIP");
+	public Optional<Object> sendOff(Object anything){
+		return Optional.of((Object) anything);
 	}
-	public String getServerIP(){
-		return serverIP;
+	public Optional<Object> requestData(String string) {
+		if(string.equals("ServerIP")){
+			return sendOff(serverIP);
+		}
+		if(string.equals("ClientID")){
+			return sendOff(0);
+		}
+		return null;
 	}
 }
