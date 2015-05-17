@@ -10,11 +10,10 @@ public class Game implements Runnable {
 	public String connectionIP = "fakeServer";
 	public Thread thread;
 	public Boolean alive = false;
+	public Boolean hasInit = false;
 	public Game() {
 		renderer = new StateRenderer();
 		serverConnection = new Connection(connectionIP);
-		System.out.println("Constructed");
-		start();
 	}
 	public synchronized void start() {
 		if(alive)
@@ -24,26 +23,37 @@ public class Game implements Runnable {
 		thread.start();
 	}
 	public synchronized void stop() {
+		System.out.println("JVM Stopping...");
 		if(!alive)
 			return;
 		alive = false;
 		try{
-			System.out.println("Killed the thread.");
 			thread.join();
 			//Kill the thread, guys. :D
+			//Then kill the entire thing for debug purposes.
+			System.exit(0);
 		}catch(InterruptedException e){
 			//print le errors :(
 			e.printStackTrace();
 		}
 	}
+	public void init() {
+		hasInit = true;
+		System.out.println(getServerDetails());
+	}
 	public void update() {
-		System.out.println(getIP(0));
+		if(!hasInit)
+			init();
+		alive = false;
 	}
 	public void render() {
 		//rendering = later
 	}
 	public String getIP(int ipID) {
 		return serverConnection.getIP(ipID).get();
+	}
+	public String getServerDetails() {
+		return serverConnection.getServerIP();
 	}
 	@Override
 	public void run() {

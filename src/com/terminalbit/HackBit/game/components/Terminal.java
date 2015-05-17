@@ -1,5 +1,5 @@
 package com.terminalbit.HackBit.game.components;
 
-public class Terminal {
+public class Terminal extends Device {
 
 }

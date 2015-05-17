@@ -1,8 +1,15 @@
 package com.terminalbit.HackBit.game.components;
 
+import java.util.List;
+
 public class Network {
-	public Network(String name, int ipID){
+	private List<Device> devices;
+	public Network(String name, int networkID, List<Device> devices){
 		//We use an ipID because assigning individual ips is bound to cause
 		//conflict. So, we just get the ip using a getIP() function from the Connection.
+		this.devices = devices;
+	}
+	public List<Device> getDevices() {
+		return devices;
 	}
 }
