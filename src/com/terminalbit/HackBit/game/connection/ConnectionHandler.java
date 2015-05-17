@@ -1,7 +1,8 @@
 package com.terminalbit.HackBit.game.connection;
 
 public class ConnectionHandler {
-	public static Connect() {
-		
+	private ServerConnection connection;
+	public static ServerConnection Connection(String ip) {
+		connection = new ServerConnection(ip);
 	}
 }
