@@ -2,6 +2,7 @@ package com.terminalbit.HackBit.game;
 
 import java.util.Optional;
 
+import com.terminalbit.HackBit.HackBit;
 import com.terminalbit.HackBit.game.components.Network;
 import com.terminalbit.HackBit.game.connection.Connection;
 import com.terminalbit.HackBit.game.render.StateRenderer;
@@ -29,8 +30,8 @@ public class Game implements Runnable {
 		System.out.println("JVM Stopping...");
 		if(!alive)
 			return;
-		alive = false;
 		try{
+			HackBit.fakeserver.thread.join();
 			thread.join();
 			//Kill the thread, guys. :D
 			//Then kill the entire thing for debug purposes.
@@ -41,13 +42,16 @@ public class Game implements Runnable {
 		}
 	}
 	public void init() {
+		if(!serverConnection.connected)
+			return;
+		System.out.println("Server IP: " + getConnectionData("ServerIP").get());
+		System.out.println("Client ID: " + getConnectionData("ClientID").get());
 		hasInit = true;
-		System.out.println(getConnectionData("ServerIP").get());
 	}
 	public void update() {
 		if(!hasInit)
 			init();
-		alive = false;
+		//alive = false;
 	}
 	public void render() {
 		//rendering = later
