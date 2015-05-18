@@ -3,7 +3,6 @@ package com.terminalbit.HackBit.game;
 import java.util.Optional;
 
 import com.terminalbit.HackBit.HackBit;
-import com.terminalbit.HackBit.game.components.Network;
 import com.terminalbit.HackBit.game.connection.Connection;
 import com.terminalbit.HackBit.game.render.StateRenderer;
 

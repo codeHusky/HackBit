@@ -51,13 +51,15 @@ public class FakeServer implements Runnable {
 		return Optional.of((Object) anything);
 	}
 	public Optional<Object> requestData(String string) {
+		if(!ClientConnected)
+			return sendOff(null);
 		if(string.equals("ServerIP")){
 			return sendOff(serverIP);
 		}
 		if(string.equals("ClientID")){
 			return sendOff(0);
 		}
-		return sendOff("Test");
+		return sendOff(null);
 	}
 	@Override
 	public void run() {

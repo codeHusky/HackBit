@@ -6,6 +6,7 @@ import java.util.Optional;
 public class Connection {
 	private ConnectionHandler ch;
 	public boolean connected = false;
+	@SuppressWarnings("unused")
 	private int connectionAttempt = 1;
 	public Connection(String serverIP) {
 		ch = new ConnectionHandler(serverIP);
