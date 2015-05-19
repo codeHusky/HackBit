@@ -1,4 +1,4 @@
-package com.terminalbit.HackBit.game.connection;
+package com.terminalbit.HackBit.fakeserver;
 
 import java.util.ArrayList;
 import java.util.List;
