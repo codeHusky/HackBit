@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import com.terminalbit.HackBit.HackBit;
 import com.terminalbit.HackBit.game.connection.Connection;
-import com.terminalbit.HackBit.game.render.StateRenderer;
+//import com.terminalbit.HackBit.game.render.StateRenderer;
 
 public class Game implements Runnable {
-	public StateRenderer renderer;
+	//public StateRenderer renderer;
 	public Connection serverConnection;
 	public ComputerRoom currentRoom;
 	public String connectionIP = "fakeServer";
@@ -15,7 +15,7 @@ public class Game implements Runnable {
 	public Boolean alive = false;
 	public Boolean hasInit = false;
 	public Game() {
-		renderer = new StateRenderer();
+		//renderer = new StateRenderer();
 		serverConnection = new Connection(connectionIP);
 	}
 	public synchronized void start() {
