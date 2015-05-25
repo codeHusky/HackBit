@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.terminalbit.HackBit.HackBit;
 import com.terminalbit.HackBit.game.connection.Connection;
 //import com.terminalbit.HackBit.game.render.StateRenderer;
+import com.terminalbit.HackBit.game.datatypes.ComputerRoom;
 
 public class Game implements Runnable {
 	//public StateRenderer renderer;

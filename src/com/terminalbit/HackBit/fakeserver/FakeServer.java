@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.terminalbit.HackBit.game.components.Device;
-import com.terminalbit.HackBit.game.components.Network;
+import com.terminalbit.HackBit.game.datatypes.Device;
+import com.terminalbit.HackBit.game.datatypes.Network;
 
 public class FakeServer implements Runnable {
 	private String serverIP;

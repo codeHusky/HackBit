@@ -1,4 +1,4 @@
-package com.terminalbit.HackBit.game.components;
+package com.terminalbit.HackBit.game.datatypes;
 
 import java.util.List;
 

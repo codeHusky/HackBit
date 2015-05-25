@@ -1,10 +1,6 @@
-package com.terminalbit.HackBit.game;
+package com.terminalbit.HackBit.game.datatypes;
 
 import java.util.List;
-
-import com.terminalbit.HackBit.game.components.Device;
-import com.terminalbit.HackBit.game.components.Network;
-import com.terminalbit.HackBit.game.components.Terminal;
 
 public class ComputerRoom {
 	public Terminal terminal;
