@@ -44,8 +44,8 @@ public class Game implements Runnable {
 	public void init() {
 		if(!serverConnection.connected)
 			return;
-		System.out.println("Server IP: " + getConnectionData("ServerIP").get());
-		System.out.println("Client ID: " + getConnectionData("ClientID").get());
+		System.out.println("Server IP: " + post("ConnectionData","ServerIP").get());
+		System.out.println("Client ID: " + post("ConnectionData","ClientID").get());
 		hasInit = true;
 	}
 	public void update() {
@@ -56,9 +56,9 @@ public class Game implements Runnable {
 	public void render() {
 		//rendering = later
 	}
-	public Optional<Object> getConnectionData(String data){
-		return serverConnection.getData(data);
-	}
+	/*public Optional<Object> getConnectionData(String data){
+		return serverConnection.getData(data);obslete method
+	}*/
 	@Override
 	public void run() {
 		while(alive){
@@ -69,5 +69,8 @@ public class Game implements Runnable {
 	private void loop() {
 		this.render();
 		this.update();
+	}
+	public Optional<Object> post(String dT, String dC) {
+		return serverConnection.send(dT, dC);
 	}
 }

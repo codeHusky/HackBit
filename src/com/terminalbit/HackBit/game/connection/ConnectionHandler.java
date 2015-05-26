@@ -15,7 +15,7 @@ public class ConnectionHandler {
 		System.out.println("Connected.");
 		connected = true;
 	}
-	public Optional<Object> requestData(String string) {
-		return HackBit.fakeserver.requestData(string);
+	public Optional<Object> send(String dT, String dC) {
+		return HackBit.fakeserver.receive(dT, dC);
 	}
 }

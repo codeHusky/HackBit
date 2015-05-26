@@ -1,5 +1,6 @@
 package com.terminalbit.HackBit;
 
+import com.terminalbit.HackBit.debugclient.JavaWindow;
 import com.terminalbit.HackBit.fakeserver.FakeServer;
 import com.terminalbit.HackBit.game.Game;
  
@@ -11,5 +12,6 @@ public class HackBit {
 		fakeserver.start();
     	hbsession = new Game();
 		hbsession.start();
+		new JavaWindow();
     }
 }

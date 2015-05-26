@@ -1,15 +1,20 @@
 package com.terminalbit.HackBit.fakeserver;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
-import com.terminalbit.HackBit.game.datatypes.Device;
-import com.terminalbit.HackBit.game.datatypes.Network;
+import com.terminalbit.HackBit.fakeserver.datatypes.ComputerRoom;
+import com.terminalbit.HackBit.fakeserver.datatypes.Terminal;
+import com.terminalbit.HackBit.fakeserver.datatypes.Device;
+import com.terminalbit.HackBit.fakeserver.datatypes.Network;
+import com.terminalbit.HackBit.fakeserver.datatypes.User;
 
 public class FakeServer implements Runnable {
 	private String serverIP;
-	private List<Network> networks;
+	private List<User> users = new ArrayList<User>();
  	private int networkCount = 0;
  	public Thread thread;
  	public Boolean alive = false;
@@ -42,27 +47,50 @@ public class FakeServer implements Runnable {
 		serverIP = ip;
 		ClientConnected = true;
 	}
-	public void setupNetwork(String name){
-		Network newNetwork = new Network(name,networkCount,new ArrayList<Device>());
-		networks.add(newNetwork);
-		networkCount++;
-	}
 	public Optional<Object> sendOff(Object anything){
 		return Optional.of((Object) anything);
-	}
-	public Optional<Object> requestData(String string) {
-		if(!ClientConnected)
-			return sendOff(null);
-		if(string.equals("ServerIP")){
-			return sendOff(serverIP);
-		}
-		if(string.equals("ClientID")){
-			return sendOff(0);
-		}
-		return sendOff(null);
 	}
 	@Override
 	public void run() {
 		
+	}
+	public Optional<Object> receive(String dT, String dC) {
+		Object breaker;
+		switch(dT){//Cuz Java 8
+			case "ConnectionData":
+				switch(dC){
+					case "ServerIP":
+						breaker = serverIP;
+					break;
+					case "ClientID":
+						breaker = 0;
+					break;
+					default:
+						breaker = "Error: Not found";
+					break;
+				}
+			break;
+			case "ClientPost":
+				String[] dCSplit = dC.split(Pattern.quote("|"));
+				String prefix = dCSplit[0];
+				switch(prefix){
+					case "CreateAccount":
+						Terminal newTerminal = new Terminal();
+						List<Device> devices = new ArrayList<Device>();
+						Network newNetwork = new Network(devices);
+						ComputerRoom userRoom = new ComputerRoom(newTerminal,newNetwork);
+						users.add(new User(users.size(),userRoom));
+						breaker = users.size();
+					break;
+					default:
+						breaker = "Invalid ClientPost";
+					break;
+				}
+			break;
+			default:
+				breaker = "Error: Type not found";
+			break;
+		}
+		return sendOff(breaker);
 	}
 }

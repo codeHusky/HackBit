@@ -2,12 +2,12 @@ package com.terminalbit.HackBit.game.datatypes;
 
 import java.util.List;
 
+import com.terminalbit.HackBit.fakeserver.datatypes.Terminal;
+
 public class Network {
-	private List<Device> devices;
-	public Network(String name, int networkID, List<Device> devices){
-		//We use an ipID because assigning individual ips is bound to cause
-		//conflict. So, we just get the ip using a getIP() function from the Connection.
-		this.devices = devices;
+	public List<Device> devices;
+	public Network(List<Device> devices2) {
+		devices = devices2;
 	}
 	public List<Device> getDevices() {
 		return devices;

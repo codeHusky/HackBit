@@ -17,8 +17,8 @@ public class Connection {
 		connected = true;
 	}
 
-	public Optional<Object> getData(String data) {
-		return ch.requestData(data);
+	public Optional<Object> send(String dT, String dC) {
+		return ch.send(dT, dC);
 	}
 
 }
