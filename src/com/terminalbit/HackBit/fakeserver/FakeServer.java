@@ -2,23 +2,24 @@ package com.terminalbit.HackBit.fakeserver;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import com.terminalbit.HackBit.fakeserver.datatypes.Account;
 import com.terminalbit.HackBit.fakeserver.datatypes.ComputerRoom;
 import com.terminalbit.HackBit.fakeserver.datatypes.Terminal;
 import com.terminalbit.HackBit.fakeserver.datatypes.Device;
 import com.terminalbit.HackBit.fakeserver.datatypes.Network;
-import com.terminalbit.HackBit.fakeserver.datatypes.User;
 
 public class FakeServer implements Runnable {
-	private String serverIP;
-	private List<User> users = new ArrayList<User>();
- 	private int networkCount = 0;
+	private String serverIP = "fakeServer";
+	private Map<String, Account> accounts = new HashMap<String,Account>();
  	public Thread thread;
  	public Boolean alive = false;
- 	private Boolean ClientConnected = false;
+ 	public Boolean loggedin = false;
 	public FakeServer(){
 	}
 	public synchronized void start() {
@@ -44,16 +45,12 @@ public class FakeServer implements Runnable {
 		}
 	}
 	public void connect(String ip) {
-		serverIP = ip;
-		ClientConnected = true;
 	}
 	public Optional<Object> sendOff(Object anything){
 		return Optional.of((Object) anything);
 	}
 	@Override
-	public void run() {
-		
-	}
+	public void run() {}
 	public Optional<Object> receive(String dT, String dC) {
 		Object breaker;
 		switch(dT){//Cuz Java 8
@@ -75,12 +72,36 @@ public class FakeServer implements Runnable {
 				String prefix = dCSplit[0];
 				switch(prefix){
 					case "CreateAccount":
-						Terminal newTerminal = new Terminal();
-						List<Device> devices = new ArrayList<Device>();
-						Network newNetwork = new Network(devices);
-						ComputerRoom userRoom = new ComputerRoom(newTerminal,newNetwork);
-						users.add(new User(users.size(),userRoom));
-						breaker = users.size();
+						if(dCSplit.length == 3){
+							Account newAccount = new Account(dCSplit[1],dCSplit[2]);
+							if(!accounts.containsKey(dCSplit[1])){
+								accounts.put(dCSplit[1], newAccount);
+								breaker = "Account \"" + dCSplit[1] + "\" has been created. Please log in.";
+							}else{
+								breaker = "Account already exists with that username.";
+							}
+						}else{
+							breaker = "Account creation failed.";
+						}
+					break;
+					case "Login":
+						if(loggedin){
+							breaker = "You're already logged in.";
+						}else if(dCSplit.length == 3){
+							if(accounts.containsKey(dCSplit[1])){
+								Account loginAccount = accounts.get(dCSplit[1]);
+								if(loginAccount.checkPass(dCSplit[2])){
+									loggedin = true;
+									breaker = "Logged in!";
+								}else{
+									breaker = "Incorrect password";
+								}
+							}else{
+								breaker = "Account does not exist D:";
+							}
+						}else{
+							breaker = "Failed to log in.";
+						}
 					break;
 					default:
 						breaker = "Invalid ClientPost";
